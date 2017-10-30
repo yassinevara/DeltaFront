@@ -1,0 +1,13 @@
+<div class="form-group">
+  <label>Mot clé :</label>
+  <input type="text" [(ngModel)]="motCle" />
+  <button class="btn btn-primary" (click)="chercher()">chercher</button>
+</div>
+{{page|json}}
+<p-dataTable [value]="pageIndividu" [lazy]="true" [rows]="size" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
+             [totalRecords]="page" (onLazyLoad)="loadCarsLazy($event)">
+  <p-header>List de Salarié</p-header>
+  <p-column field="nom" header="Nom"></p-column>
+  <p-column field="prenom" header="Prenom"></p-column>
+  <p-column field="numSecurite" header="Numero Securite"></p-column>
+</p-dataTable>
