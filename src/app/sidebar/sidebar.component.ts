@@ -10,7 +10,7 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  { path: 'dashboard', title: 'Dashboard',  icon: 'ti-panel', class: '' },
+  { path: 'individu', title: 'Individu',  icon: 'ti-user', class: '' },
   { path: 'user', title: 'User Profile',  icon:'ti-user', class: '' },
   { path: 'table', title: 'Table List',  icon:'ti-view-list-alt', class: '' },
   { path: 'typography', title: 'Typography',  icon:'ti-text', class: '' },
@@ -19,6 +19,7 @@ export const ROUTES: RouteInfo[] = [
   { path: 'notifications', title: 'Notifications',  icon:'ti-bell', class: '' },
   { path: 'upgrade', title: 'Upgrade to PRO',  icon:'ti-export', class: 'active-pro' },
 ];
+
 
 @Component({
   moduleId: module.id,
@@ -33,10 +34,10 @@ export class SidebarComponent implements OnInit {
   }
   isNotMobileMenu(){
     if(window.screen.width> 991){
-      console.log("false"+window.screen.width);
+
       return false;
     }
-    console.log("true"+window.screen.width);
+
     return true;
   }
 

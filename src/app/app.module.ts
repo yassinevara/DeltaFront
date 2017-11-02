@@ -1,15 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { AppComponent } from './app.component';
-import { IndividuComponent } from './individu/individu.component';
 import {RouterModule,Routes} from "@angular/router";
 import { SidebarComponent } from './sidebar/sidebar.component';
-import {IndividuService} from "../service/individu.service";
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
-import {DataTableModule} from "primeng/components/datatable/datatable";
-import {SharedModule} from "primeng/components/common/shared";
+import {IndividuComponent} from "./individu/individu.component";
+import {IndividuService} from "../service/individu.service";
+import { NewIndividuComponent } from './new-individu/new-individu.component';
+import { HeaderComponent } from './header/header.component';
+import { EditIndividuComponent } from './edit-individu/edit-individu.component';
 
 const appRoutes: Routes =[
   {
@@ -18,17 +18,29 @@ const appRoutes: Routes =[
     pathMatch: 'full',
   },
   {
+    path:'newIndividu',
+    component: NewIndividuComponent
+  },
+  {
     path: 'listIndividu',
     component: IndividuComponent
   },
+  {
+    path: 'editIndividu/:id',
+    component: EditIndividuComponent
+  },
 ];
-
 
 @NgModule({
   declarations: [
     AppComponent,
     IndividuComponent,
-    SidebarComponent
+    SidebarComponent,
+    NewIndividuComponent,
+    HeaderComponent,
+    EditIndividuComponent,
+
+
 
   ],
   imports: [
@@ -36,10 +48,11 @@ const appRoutes: Routes =[
     RouterModule.forRoot(appRoutes),
     HttpModule,
     FormsModule,
-    DataTableModule,
-    SharedModule,
+
 
   ],
+
+
   providers: [IndividuService],
   bootstrap: [AppComponent]
 })

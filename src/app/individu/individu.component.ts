@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {DataTableModule,SharedModule} from 'primeng/primeng';
 import {IndividuService} from "../../service/individu.service";
 import {LazyLoadEvent} from "primeng/components/common/lazyloadevent";
+import {RouterLink, Router} from "@angular/router";
+import {Individu} from "../../model/Individu";
+
 
 @Component({
   selector: 'app-individu',
@@ -12,10 +14,11 @@ export class IndividuComponent implements OnInit {
   pageIndividu:any=null;
   currentPage:number=0;
   motCle:string ="";
-  page:number=0;
-  size:number=5;
+  size:number=10;
   pages:Array<number>;
-  constructor(public individuService:IndividuService) { }
+
+  constructor(public individuService:IndividuService,
+              public router:Router) { }
 
   ngOnInit() {
     this.chercher();
@@ -24,34 +27,42 @@ export class IndividuComponent implements OnInit {
   getIndividus(){
     this.individuService.getIndividus(this.motCle,this.currentPage,this.size)
       .subscribe(data=>{
-        console.log("pageee"+data.totalPages);
-        this.pageIndividu = data.content;
-        this.page = data.totalPages;
-        this.pages=new Array(data.totalPages);
-
-      //  this.pageIndividu = data.slice(0,this.size);
+        this.pageIndividu = data;
+        this.pages = new Array (data.totalPages);
       },error=> {
         console.log(error);
-
       })
   }
 
   chercher(){
     this.getIndividus();
   }
-  loadCarsLazy(event: LazyLoadEvent) {
 
-
-    //imitate db connection over a network
-    setTimeout(() => {
-      if(this.pageIndividu) {
-        this.getIndividus();
-      }
-    }, 250);
-  }
 
   gotoPage(i:number){
     this.currentPage = i;
     this.getIndividus();
   }
+
+  editIndividu(id:number){
+    //changer la route
+    //router transmet un tableau contien l route et l'id
+    this.router.navigate(['/editIndividu',id]);
+  }
+
+  deleteIndividu(i:Individu){
+    let confirm=window.confirm("Etes vous sure?")
+    if(confirm==true){
+      this.individuService.deleteIndividu(i.idIndividu)
+        .subscribe(data=>{
+          //supprimer l'individu du tableau par son index pour eviter le chargement de la liste
+          this.pageIndividu.content.splice(
+            this.pageIndividu.content.indexOf(i),1
+          )
+        },error=>{
+          console.log(error)
+        })
+    }
+    }
+
 }

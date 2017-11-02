@@ -1,13 +1,83 @@
-<div class="form-group">
-  <label>Mot clé :</label>
-  <input type="text" [(ngModel)]="motCle" />
-  <button class="btn btn-primary" (click)="chercher()">chercher</button>
+<!--
+<div class="container spacer">
+  <div class="panel panel-primary">
+    <div class="panel-heading"> Liste des individus</div>
+    <div class="panel-body">
+    <div class="form-group">
+      <label>Mot clé :</label>
+      <input type="text" [(ngModel)]="motCle" />
+      <button class="btn btn-primary" (click)="chercher()">chercher</button>
+    </div>
+    <table class="table tab-content">
+      <tr>
+        <th>Nom</th><th>Prenom</th><th>Numero de Sécurité</th>
+      </tr>
+      <tr *ngFor="let i of pageIndividu?.content">
+        <td>{{i.nom}}</td>
+        <td>{{i.prenom}}</td>
+        <td>{{i.nom}}</td>
+      </tr>
+    </table>
+      <div class="container">
+        <ul class="nav nav-pills">
+          <li [ngClass]="{'active':i==currentPage}" *ngFor="let p of pages ; let i=index">
+            <a class="clckable" (click)="gotoPage(i)"> {{i}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
 </div>
-{{page|json}}
-<p-dataTable [value]="pageIndividu" [lazy]="true" [rows]="size" [paginator]="true" [rowsPerPageOptions]="[5,10,20]"
-             [totalRecords]="page" (onLazyLoad)="loadCarsLazy($event)">
-  <p-header>List de Salarié</p-header>
-  <p-column field="nom" header="Nom"></p-column>
-  <p-column field="prenom" header="Prenom"></p-column>
-  <p-column field="numSecurite" header="Numero Securite"></p-column>
-</p-dataTable>
+-->
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="header">
+          <h4 class="title">Liste des individus</h4>
+          <div class="form-group spacer">
+            <label>Mot clé :</label>
+            <input type="text" [(ngModel)]="motCle" />
+            <button class="btn btn-primary" (click)="chercher()">chercher</button>
+          </div>
+          <button class="btn btn-primary" routerLink="/newIndividu">Ajouter individu</button>
+          <!--<p class="category">Here is a subtitle for this table</p>-->
+        </div>
+        <div class="content table-responsive table-full-width">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Id</th><th>Nom</th><th>Prenom</th><th>Numero de Sécurité</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let i of pageIndividu?.content">
+              <td>{{i.idIndividu}}</td>
+              <td>{{i.nom}}</td>
+              <td>{{i.prenom}}</td>
+              <td>{{i.nom}}</td>
+              <td>
+                <a (click)="editIndividu(i.idIndividu)" class="clckable">Edit</a>
+              </td>
+              <td>
+                <a (click)="deleteIndividu(i)" class="clckable">Delete</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="container">
+            <ul class="nav nav-pills">
+              <li [ngClass]="{'active':i==currentPage}" *ngFor="let p of pages ; let i=index">
+                <a class="clckable" (click)="gotoPage(i)"> {{i}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
