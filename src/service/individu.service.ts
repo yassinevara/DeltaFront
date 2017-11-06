@@ -9,7 +9,7 @@ export class IndividuService {
 
   }
   getIndividus (motCle:string,page:number,size:number){
-    console.log("sevice get individus")
+    console.log("sevice get individus pagination")
     return this.http.get("http://localhost:8080/searchIndividus?nom="+motCle+"&page="+page+"&size="+size)
       .map(resp=>resp.json());
   }
@@ -37,6 +37,12 @@ export class IndividuService {
 
   deleteIndividu(id:number){
     return this.http.delete("http://localhost:8080/individus/"+id)
+      .map(resp=>resp.json());
+  }
+
+  getIndividuByname(nom:string){
+    console.log("sevice get individu by name")
+    return this.http.get("http://localhost:8080/individusByName/"+nom)
       .map(resp=>resp.json());
   }
 }

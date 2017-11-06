@@ -1,0 +1,43 @@
+<div class="container col-md-10">
+  <div  *ngIf="ajouterVersement==1">
+    <button class="btn btn-primary" (click)="ajouterVersement=2"   >Ajouter Versement</button>
+  </div>
+
+
+  <div class="panel panel-primary" *ngIf="ajouterVersement==2" >
+    <div class="panel-heading">Nouveau Versement</div>
+    <div class="panel-body">
+      <form #f="ngForm" (ngSubmit)="onSaveVersement(f.value)">
+        <div>
+          <div class="form-group">
+            <label class="control-label">Individu:</label>
+            <div class="modal-content">
+              <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                  <input id="search" type="text" class="form-control input-lg" placeholder="Search" #name (keyup)="chargerListIndividu(name.value)"/>
+                  <span class="input-group-btn">
+								<button class="btn btn-info btn-lg" type="button">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</span>
+                </div>
+
+                <select  *ngSwitchCase="'dropdown'" >
+                  <option *ngFor="let ind of individus" [value]="ind.nom">{{ ind.nom}} {{ ind.prenom}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Salaire:</label>
+            <input class="form-control" type="text"  ngModel name="salaire" required/>
+          </div>
+          <div class="form-group">
+            <label class="control-label">Date:</label>
+            <input class="form-control" type="date"  ngModel name="numSecurite" required/>
+          </div>
+        </div>
+        <button [disabled]="!f.valid" type="submit" class="btn btn-primary">Valider</button>
+      </form>
+    </div>
+  </div>

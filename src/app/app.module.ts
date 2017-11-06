@@ -10,6 +10,9 @@ import {IndividuService} from "../service/individu.service";
 import { NewIndividuComponent } from './new-individu/new-individu.component';
 import { HeaderComponent } from './header/header.component';
 import { EditIndividuComponent } from './edit-individu/edit-individu.component';
+import { VersementComponent } from './versement/versement.component';
+import {VersementService} from "../service/versement.service";
+import {CallFunction} from "../directive/CallFunction";
 
 const appRoutes: Routes =[
   {
@@ -29,6 +32,10 @@ const appRoutes: Routes =[
     path: 'editIndividu/:id',
     component: EditIndividuComponent
   },
+  {
+    path: 'versement',
+    component: VersementComponent
+  },
 ];
 
 @NgModule({
@@ -39,6 +46,8 @@ const appRoutes: Routes =[
     NewIndividuComponent,
     HeaderComponent,
     EditIndividuComponent,
+    VersementComponent,
+    CallFunction
 
 
 
@@ -53,7 +62,7 @@ const appRoutes: Routes =[
   ],
 
 
-  providers: [IndividuService],
+  providers: [IndividuService,VersementService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
