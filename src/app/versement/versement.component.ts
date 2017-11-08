@@ -12,12 +12,15 @@ import {IndividuService} from "../../service/individu.service";
 export class VersementComponent implements OnInit {
   ajouterVersement:number=1;
   versement : Versement;
-  individus : null;
-  @Output() onCreate: EventEmitter<any> = new EventEmitter<any>();
+  individus : [Individu]=null;
+  individuSelectione : Individu;
   constructor(public versementService:VersementService,
-  public individuService : IndividuService) { }
+  public individuService : IndividuService) {
+    this.individuSelectione = new Individu();
+  }
 
   ngOnInit() {
+    this.chargerListIndividu();
   }
 
   onSaveVersement(dataForm){
@@ -30,17 +33,23 @@ export class VersementComponent implements OnInit {
     )
   }
 
-  chargerListIndividu(name:string){
-    this.individuService.getIndividuByname(name)
-      .subscribe(data=>{
-        console.log("chargement list individu"+data)
-       // this.ajouterVersement=1;
-        this.individus = data;
-        },error=>{
-        console.log("erreur chargement list individu")
-        }
+  chargerListIndividu(){
 
-      )
+    if (this.individus!==null){
+      console.log("no appel ")
+    }else {
+      this.individuService.getIndividuByname(name)
+        .subscribe(data=>{
+            console.log("chargement list individu"+data)
+            // this.ajouterVersement=1;
+            this.individus = data;
+          },error=>{
+            console.log("erreur chargement list individu")
+          }
+
+        )
+    }
+
   }
 
 

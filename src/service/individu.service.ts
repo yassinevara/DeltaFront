@@ -42,7 +42,7 @@ export class IndividuService {
 
   getIndividuByname(nom:string){
     console.log("sevice get individu by name")
-    return this.http.get("http://localhost:8080/individusByName/"+nom)
+    return this.http.get("http://localhost:8080/individusByName?nom="+nom)
       .map(resp=>resp.json());
   }
 }

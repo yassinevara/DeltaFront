@@ -9,35 +9,78 @@
     <div class="panel-body">
       <form #f="ngForm" (ngSubmit)="onSaveVersement(f.value)">
         <div>
-          <div class="form-group">
+         <!-- <div class="form-group">
             <label class="control-label">Individu:</label>
             <div class="modal-content">
               <div id="custom-search-input">
                 <div class="input-group col-md-12">
-                  <input id="search" type="text" class="form-control input-lg" placeholder="Search" #name (keyup)="chargerListIndividu(name.value)"/>
-                  <span class="input-group-btn">
-								<button class="btn btn-info btn-lg" type="button">
-									<i class="glyphicon glyphicon-search"></i>
-								</button>
-							</span>
-                </div>
+                  <input name="nomPrenom" ngModel type="text" class="form-control input-lg" list="individus" placeholder="Chercherer un individu"  (click)="chargerListIndividu()" required/>
 
-                <select  *ngSwitchCase="'dropdown'" >
-                  <option *ngFor="let ind of individus" [value]="ind.nom">{{ ind.nom}} {{ ind.prenom}}</option>
-                </select>
+
+                  <span class="input-group-btn">
+								    <button class="btn btn-info btn-lg" type="button">
+									    <i class="glyphicon glyphicon-search"></i>
+								    </button>
+							    </span>
+                </div>
+                <datalist id="individus">
+                  <option *ngFor="let ind of individus" [value]="ind.nom+' '+ind.prenom" (click)="idIndividuSelectione===ind.idIndividu">
+
+
+
+                </datalist>
               </div>
+            </div>
+          </div>-->
+          <div class="form-group">
+            <label for="individu">Individus :</label>
+            <select class="form-control" id="individu"
+                    required
+                    name="individu" [(ngModel)]="individuSelectione"
+                    #individu="ngModel">
+              <!--[value]="..." only supports string values
+              [ngValue]="..." supports any type-->
+              <option *ngFor="let ind of individus" [ngValue]="ind">{{ind.nom}} {{ind.prenom }}</option>
+            </select>
+
+            <div [hidden]="individu.valid || individu.pristine" class="alert alert-danger">
+              individu is required
+            </div>
+          </div>
+        <!--  <div class="form-group">
+            <label class="control-label">Salaire:</label>
+            <input class="form-control" type="text"  ngModel name="salaire" required/>
+          </div>-->
+          <div class="form-group">
+            <label for="salaire">Salaire :</label>
+            <input type="number" class="form-control" id="salaire"
+                   required
+                   ngModel name="salaire"
+                   #salaire="ngModel">
+            <div [hidden]="salaire.valid || salaire.pristine"
+                 class="alert alert-danger">
+              salaire is required
             </div>
           </div>
           <div class="form-group">
-            <label class="control-label">Salaire:</label>
-            <input class="form-control" type="text"  ngModel name="salaire" required/>
+            <label for="date">Date :</label>
+            <input type="date" class="form-control" id="date"
+                   required
+                   ngModel name="date"
+                   #date="ngModel">
+            <div [hidden]="date.valid || date.pristine"
+                 class="alert alert-danger">
+              date is required
+            </div>
           </div>
-          <div class="form-group">
+          <!--<div class="form-group">
             <label class="control-label">Date:</label>
             <input class="form-control" type="date"  ngModel name="numSecurite" required/>
-          </div>
+          </div>-->
         </div>
-        <button [disabled]="!f.valid" type="submit" class="btn btn-primary">Valider</button>
+        <!--<button [disabled]="!f.valid" type="submit" class="btn btn-primary">Valider</button>-->
+        <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">Enregistrer</button>
       </form>
     </div>
   </div>
+</div>

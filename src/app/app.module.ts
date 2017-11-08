@@ -12,7 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { EditIndividuComponent } from './edit-individu/edit-individu.component';
 import { VersementComponent } from './versement/versement.component';
 import {VersementService} from "../service/versement.service";
-import {CallFunction} from "../directive/CallFunction";
+
 
 const appRoutes: Routes =[
   {
@@ -47,8 +47,6 @@ const appRoutes: Routes =[
     HeaderComponent,
     EditIndividuComponent,
     VersementComponent,
-    CallFunction
-
 
 
   ],
