@@ -1,61 +1,34 @@
-
-<!--<div class="container">
-<div class="panel panel-primary" *ngIf="mode==1">
-   <div class="panel-heading">Nouveau Individu</div>
-   <div class="panel-body">
-     <div>
-       <div class="form-group">
-         <label class="control-label">Nom:</label>
-         <input class="form-control" type="text" [(ngModel)]="individu.nom"/>
-       </div>
-       <div class="form-group">
-         <label class="control-label">Prenom:</label>
-         <input class="form-control" type="text" [(ngModel)]="individu.prenom"/>
-       </div>
-       <div class="form-group">
-         <label class="control-label">Numero de securite:</label>
-         <input class="form-control" type="text" [(ngModel)]="individu.numSecurite"/>
-       </div>
-
-       <button class="btn btn-primary" (click)="saveIndividu()">Enregistrer</button>
-     </div>
-   </div>
- </div>
--->
 <div class="container">
-  <div class="panel panel-primary" *ngIf="mode==1">
+  <div class="panel panel-primary" *ngIf="confirmationajout==1">
     <div class="panel-heading">Nouveau Individu</div>
     <div class="panel-body">
       <form #f="ngForm" (ngSubmit)="onSaveIndividu(f.value)">
         <div>
           <div class="form-group">
             <label class="control-label">Nom:</label>
-            <input class="form-control" type="text"  ngModel name="nom" required/>
+            <input class="form-control" type="text"  [(ngModel)]="individu.nom" name="nom" required/>
           </div>
           <div class="form-group">
             <label class="control-label">Prenom:</label>
-            <input class="form-control" type="text"  ngModel name="prenom" required/>
+            <input class="form-control" type="text"  [(ngModel)]="individu.prenom" name="prenom" required/>
           </div>
           <div class="form-group">
             <label class="control-label">Numero de Securité:</label>
-            <input class="form-control" type="text"  ngModel name="numSecurite" required/>
+            <input class="form-control" type="text"  [(ngModel)]="individu.numSecurite" name="numSecurite" required/>
           </div>
         </div>
-        <button [disabled]="!f.valid" type="submit" class="btn btn-primary">Enregistrer</button>
+        <button [disabled]="!f.valid" type="submit" class="btn btn-primary" >Enregistrer</button>
       </form>
     </div>
   </div>
 
 
 
-  <div class="panel panel-primary" *ngIf="mode==2">
+  <div class="panel panel-primary" *ngIf="confirmationajout==2">
     <div class="panel-heading">Confirmation</div>
     <div class="panel-body">
       <div>
-        <div class="form-group">
-          <label class="control-label">Id:</label>
-          <label> {{individu.idIndividu}}</label>
-        </div>
+
         <div class="form-group">
           <label class="control-label">Nom:</label>
           <label> {{individu.nom}}</label>
@@ -69,8 +42,9 @@
           <label> {{individu.numSecurite}}</label>
         </div>
 
-        <button class="btn btn-primary" (click)="mode==1">Nouveau individu</button>
-        <button class="btn btn-primary" routerLink="/listIndividu">Retour liste individus</button>
+        <button class="btn btn-primary" (click)="confirmationajout=1">Editer</button>
+        <button class="btn btn-primary" (click)="enregistrerIndividu()">Confirmer</button>
+        <button class="btn btn-primary" routerLink="/listIndividu">Annuler</button>
       </div>
     </div>
   </div>

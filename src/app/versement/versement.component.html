@@ -1,86 +1,106 @@
-<div class="container col-md-10">
-  <div  *ngIf="ajouterVersement==1">
-    <button class="btn btn-primary" (click)="ajouterVersement=2"   >Ajouter Versement</button>
-  </div>
 
 
-  <div class="panel panel-primary" *ngIf="ajouterVersement==2" >
-    <div class="panel-heading">Nouveau Versement</div>
-    <div class="panel-body">
-      <form #f="ngForm" (ngSubmit)="onSaveVersement(f.value)">
-        <div>
-         <!-- <div class="form-group">
-            <label class="control-label">Individu:</label>
-            <div class="modal-content">
-              <div id="custom-search-input">
-                <div class="input-group col-md-12">
-                  <input name="nomPrenom" ngModel type="text" class="form-control input-lg" list="individus" placeholder="Chercherer un individu"  (click)="chargerListIndividu()" required/>
+<div class="container-fluid">
 
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="header">
+          <h4 class="title">Versement</h4>
+          <div class="form-group spacer row">
+            <div class="col-md-8 row">
+              <form #search="ngForm" (ngSubmit)="getVersementOfIndividu()">
 
-                  <span class="input-group-btn">
-								    <button class="btn btn-info btn-lg" type="button">
-									    <i class="glyphicon glyphicon-search"></i>
-								    </button>
-							    </span>
+                <div class="col-md-2">
+                  <label for="individuSearch">Individu :</label>
                 </div>
-                <datalist id="individus">
-                  <option *ngFor="let ind of individus" [value]="ind.nom+' '+ind.prenom" (click)="idIndividuSelectione===ind.idIndividu">
+                <div class="col-md-4">
+                  <select class="form-control" id="individuSearch"
+                          required
+                          name="individuSearch" [(ngModel)]="individuSelectione"
+                          #individuSearch="ngModel" (click)="chargerListIndividu()">
+                    <!--[value]="..." only supports string values
+                    [ngValue]="..." supports any type-->
+                    <option *ngFor="let ind of individus" [ngValue]="ind">{{ind.nom}} {{ind.prenom }}</option>
+                  </select>
+                  <div [hidden]="individuSearch.valid || individuSearch.pristine" class="alert alert-danger">
+                    individu is required
+                  </div>
+                </div>
+                <div  class="col-md-2">
+                  <button type="submit" class="btn btn-success" [disabled]="!search.form.valid">Chercher</button>
+                </div>
 
-
-
-                </datalist>
-              </div>
+              </form>
             </div>
-          </div>-->
-          <div class="form-group">
-            <label for="individu">Individus :</label>
-            <select class="form-control" id="individu"
-                    required
-                    name="individu" [(ngModel)]="individuSelectione"
-                    #individu="ngModel">
-              <!--[value]="..." only supports string values
-              [ngValue]="..." supports any type-->
-              <option *ngFor="let ind of individus" [ngValue]="ind">{{ind.nom}} {{ind.prenom }}</option>
-            </select>
-
-            <div [hidden]="individu.valid || individu.pristine" class="alert alert-danger">
-              individu is required
-            </div>
-          </div>
-        <!--  <div class="form-group">
-            <label class="control-label">Salaire:</label>
-            <input class="form-control" type="text"  ngModel name="salaire" required/>
-          </div>-->
-          <div class="form-group">
-            <label for="salaire">Salaire :</label>
-            <input type="number" class="form-control" id="salaire"
-                   required
-                   ngModel name="salaire"
-                   #salaire="ngModel">
-            <div [hidden]="salaire.valid || salaire.pristine"
-                 class="alert alert-danger">
-              salaire is required
+            <div class="col-md-4" >
+              <button class="btn btn-primary" routerLink="/newVersement"   >Ajouter Versement</button>
             </div>
           </div>
-          <div class="form-group">
-            <label for="date">Date :</label>
-            <input type="date" class="form-control" id="date"
-                   required
-                   ngModel name="date"
-                   #date="ngModel">
-            <div [hidden]="date.valid || date.pristine"
-                 class="alert alert-danger">
-              date is required
-            </div>
-          </div>
-          <!--<div class="form-group">
-            <label class="control-label">Date:</label>
-            <input class="form-control" type="date"  ngModel name="numSecurite" required/>
-          </div>-->
         </div>
-        <!--<button [disabled]="!f.valid" type="submit" class="btn btn-primary">Valider</button>-->
-        <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">Enregistrer</button>
-      </form>
+        <div class="content table-responsive table-full-width" *ngIf="versements!=null">
+
+
+
+
+
+
+
+
+
+
+          <div class="container-fluid">
+            <h4>Individu:</h4>
+            <div class="form-group">
+              <label class="control-label">Nom:</label>
+              <label> {{individuSelectione.nom}}</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Prenom:</label>
+              <label> {{individuSelectione.prenom}}</label>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Numero de securite:</label>
+              <label> {{individuSelectione.numSecurite}}</label>
+            </div>
+
+
+          <h4 class="spacer">Liste des versements:</h4>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Salaire</th><th>Mois Salaire</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let v of versements">
+              <td>{{v.salaire}}</td>
+              <td>{{v.dateVersement}}</td>
+              <!--<td>
+                <a (click)="editIndividu(i.idIndividu)" class="clckable">Edit</a>
+              </td>
+              <td>
+                <a (click)="deleteIndividu(i)" class="clckable">Delete</a>
+              </td>-->
+            </tr>
+            </tbody>
+          </table>
+          <div class="container">
+            <ul class="nav nav-pills">
+              <li [ngClass]="{'active':i==currentPage}" *ngFor="let p of pages ; let i=index">
+                <a class="clckable" (click)="gotoPage(i)"> {{i}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+

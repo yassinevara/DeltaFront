@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { EditIndividuComponent } from './edit-individu/edit-individu.component';
 import { VersementComponent } from './versement/versement.component';
 import {VersementService} from "../service/versement.service";
+import { NewVersementComponent } from './new-versement/new-versement.component';
 
 
 const appRoutes: Routes =[
@@ -36,6 +37,10 @@ const appRoutes: Routes =[
     path: 'versement',
     component: VersementComponent
   },
+  {
+    path: 'newVersement',
+    component: NewVersementComponent
+  },
 ];
 
 @NgModule({
@@ -47,6 +52,7 @@ const appRoutes: Routes =[
     HeaderComponent,
     EditIndividuComponent,
     VersementComponent,
+    NewVersementComponent,
 
 
   ],

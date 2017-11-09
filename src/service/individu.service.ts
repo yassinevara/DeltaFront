@@ -26,7 +26,7 @@ export class IndividuService {
   }
 
   getIndividu(id:number){
-    return this.http.get("http://localhost:8080//individus/"+id)
+    return this.http.get("http://localhost:8080/individus/"+id)
       .map(resp=>resp.json());
   }
   updateIndividu(individu:Individu){

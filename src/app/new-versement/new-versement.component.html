@@ -1,0 +1,79 @@
+<div class="panel panel-primary" *ngIf="confirmationAjout==1" >
+  <div class="panel-heading">Nouveau Versement</div>
+  <div class="panel-body">
+    <form #f="ngForm" (ngSubmit)="onSaveVersement(f.value)">
+      <div>
+
+        <div class="form-group">
+          <label for="individu">Individus :</label>
+          <select class="form-control" id="individu"
+                  required
+                  name="individu" [(ngModel)]="individuSelectione"
+                  #individu="ngModel">
+          <!--  [value]="..." only supports string values
+            [ngValue]="..." supports any type-->
+            <option *ngFor="let ind of individus" [ngValue]="ind">{{ind.nom}} {{ind.prenom }}</option>
+          </select>
+
+          <div [hidden]="individu.valid || individu.pristine" class="alert alert-danger">
+            individu is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Salaire:</label>
+          <input class="form-control" type="number"  [(ngModel)]="versement.salaire" name="salaire" #salaire="ngModel" required/>
+        </div>
+        <div [hidden]="salaire.valid || salaire.pristine" class="alert alert-danger">
+          individu is required
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Date:</label>
+          <input class="form-control" type="date"  [(ngModel)]="versement.dateVersement" name="dateVersement" #date="ngModel" required/>
+        </div>
+      </div>
+      <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
+        individu is required
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!f.form.valid">Enregistrer</button>
+
+    </form>
+  </div>
+</div>
+
+
+
+  <div class="panel panel-primary" *ngIf="confirmationAjout==2" >
+    <div class="panel-heading">Confirmation</div>
+    <div class="panel-body">
+      <div>
+
+        <div class="form-group">
+          <label class="control-label">Nom:</label>
+          <label> {{individuSelectione.nom}}</label>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Prenom:</label>
+          <label> {{individuSelectione.prenom}}</label>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Salaire:</label>
+          <label> {{versement.salaire}}  </label>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label">Date:</label>
+          <label>{{versement.dateVersement}}  </label>
+        </div>
+
+        <button class="btn btn-primary"(click)="enregistrerVersement()" >Confirmer</button>
+        <button class="btn btn-primary"(click)="confirmationAjout=1" >Editer</button>
+        <button  class="btn btn-primary" routerLink="/versement">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+
+
+
